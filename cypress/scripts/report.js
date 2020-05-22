@@ -3,7 +3,7 @@
 const cypress = require('cypress')
 
 main()
-// exits cleanly in 3.4.1
+// process.exit()  // this would "help" but should not be needed
 
 async function main() {
     const result = await cypress.run()
