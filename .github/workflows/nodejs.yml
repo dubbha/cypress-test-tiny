@@ -1,20 +1,33 @@
-# This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
-# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
+# https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
+# https://github.com/cypress-io/github-action
 
-name: Node.js CI
+# name: Node.js CI
 
-on: [pull_request, push]
+# on: [push]
 
+# jobs:
+#   cypress-run:
+#     runs-on: runs-on: ubuntu-16.04
+
+#     steps:
+#     - uses: actions/checkout@v2
+#     - uses: actions/setup-node@v1
+#       with:
+#         node-version: '12.x'
+
+#     - run: sudo apt-get install libgtk2.0-0 libgtk-3-0 libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 libxtst6 xauth xvfb
+#     - run: yarn
+#     - run: yarn cy:report
+
+name: End-to-end tests
+on: [push]
 jobs:
-  build:
-    runs-on: runs-on: ubuntu-16.04
-
+  cypress-run:
+    runs-on: ubuntu-16.04
     steps:
-    - uses: actions/checkout@v2
-    - uses: actions/setup-node@v1
-      with:
-        node-version: '12.x'
-
-    - run: sudo apt-get install libgtk2.0-0 libgtk-3-0 libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 libxtst6 xauth xvfb
-    - run: yarn
-    - run: yarn cy:report
+      - name: Checkout
+        uses: actions/checkout@v1
+      # Install NPM dependencies, cache them correctly
+      # and run all Cypress tests
+      - name: Cypress run
+        uses: cypress-io/github-action@v1
